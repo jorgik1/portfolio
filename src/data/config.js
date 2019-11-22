@@ -1,10 +1,10 @@
 module.exports = {
 	defaultTitle: 'Yuriy Stenin',
-	logo: 'https://portfolio.smakosh.com/favicon/favicon-512.png',
+	logo: 'https://gatsby-portfolio-dev.yuriys.now.sh/favicon/favicon-512.png',
 	author: 'Yuriy Stenin',
 	url: 'https://anyforsoft.com/portfolio',
 	legalName: 'Yuriy Stenin',
-	defaultDescription: 'I’m YUriy and I’m a Backend engineer!',
+	defaultDescription: 'I’m Yuriy and I’m a Backend engineer!',
 	socialLinks: {
 		github: 'https://github.com/jorgik1',
 		linkedin: 'https://www.linkedin.com/in/yuriy-stenin/',
@@ -22,9 +22,9 @@ module.exports = {
 		zipCode: 'ZipCode',
 	},
 	contact: {
-		email: 'email',
-		phone: 'phone number',
+		email: 'yuriy.ipcom@gmail.com',
+		phone: '',
 	},
 	foundingDate: '2019',
-	recaptcha_key: ''
+	recaptcha_key: '6LeKKcQUAAAAACQrQR0JY2ijgXbeYx8md2A5O4xm'
 }
