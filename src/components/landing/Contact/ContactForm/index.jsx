@@ -106,26 +106,18 @@ export default withFormik({
 			recaptcha: Yup.string().required('Robots are not welcome yet!'),
 		}),
 	handleSubmit: async (
-		{ name, email, message, recaptcha },
+		{ name, email, message },
 		{ setSubmitting, resetForm, setFieldValue }
 	) => {
 		try {
-			const encode = data => {
-				return Object.keys(data)
-					.map(
-						key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
-					)
-					.join('&')
-			}
-			await fetch('/?no-cache=1', {
+			await fetch('https://formspree.io/xjvvqevg', {
 				method: 'POST',
-				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				body: encode({
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
 					'form-name': 'portfolio-dev',
 					name,
 					email,
 					message,
-					'g-recaptcha-response': recaptcha,
 				}),
 			})
 			await setSubmitting(false)
