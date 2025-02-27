@@ -7,6 +7,7 @@ export default () => (
 		<SEO />
 		<Intro />
 		<Projects />
+		<DrupalProjects />
 		<Skills />
 		<Contact />
 	</Layout>
