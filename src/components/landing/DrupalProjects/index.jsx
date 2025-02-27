@@ -9,10 +9,10 @@ export const DrupalProjects = () => {
 
   useEffect(() => {
     // Replace 'jorgik1' with your Drupal.org username
-    const username = 'jorgik1'
+    const username = '3297381'
     
     // Fetch projects from Drupal.org API
-    fetch(`https://www.drupal.org/api-d7/user/${username}/node.json?type=project_project`)
+    fetch(`https://www.drupal.org/api-d7/user/${username}.json?type=project_project`)
       .then(response => response.json())
       .then(data => {
         setProjects(data.list || [])
