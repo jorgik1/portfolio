@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Component renders default button correctly and matches snapshot 1`] = `
+<button
+  class="sc-bdVaJa hYVUdD"
+>
+  Click Me
+</button>
+`;
+
+exports[`Button Component renders secondary button correctly and matches snapshot 1`] = `
+<button
+  class="sc-bdVaJa hMlUGK"
+>
+  Secondary Action
+</button>
+`;
