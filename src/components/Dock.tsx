@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { GlassCard } from './GlassCard';
-import { FaGithub, FaLinkedin, FaFolder, FaEnvelope, FaCode, FaUser } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaUser } from 'react-icons/fa';
 
 interface DockProps {
   onAppOpen: (appId: string) => void;

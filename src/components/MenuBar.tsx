@@ -3,6 +3,12 @@ import { useState } from 'react';
 import { GlassCard } from './GlassCard';
 import { FaApple } from 'react-icons/fa';
 
+interface MenuItem {
+  label: string;
+  action?: string;
+  disabled?: boolean;
+}
+
 const MenuBar = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   
@@ -17,7 +23,7 @@ const MenuBar = () => {
     day: 'numeric',
   });
 
-  const menuItems = {
+  const menuItems: Record<string, MenuItem[]> = {
     apple: [
       { label: 'About This Portfolio', action: 'about' },
       { label: '---' },
@@ -68,6 +74,12 @@ const MenuBar = () => {
     switch(action) {
       case 'about':
         alert('👋 Yuriy Stenin - Full Stack Developer\n\nExpertise in PHP, Drupal, JavaScript, and Python.\nCommitted to Clean Code principles and building scalable web solutions.\n\n🎓 Education:\n• Master\'s in Cybersecurity\n• Bachelor\'s in Electrical Engineering');
+        break;
+      case 'projects':
+        alert('💻 My Projects\n\nFeatured Work:\n\n• Dark Sky PHP API Client\n• Real-time Data Visualization (D3.js)\n• WorldPay Payment Integration\n• Social Network Posts Module\n• Streaming Music Player\n• Django WebSocket System\n• E-commerce Platform (Drupal)\n\n🚀 Click the Projects icon in the dock to explore!');
+        break;
+      case 'contact':
+        alert('✉️ Get in Touch\n\n📧 Email: yurii.stenin@gmail.com\n🐙 GitHub: github.com/jorgik1\n💼 LinkedIn: linkedin.com/in/yuriy-stenin/\n📍 Location: Poland, Andrzew\n\n💡 Click the Contact icon in the dock for the contact form!');
         break;
       case 'tech':
       case 'tech-info':

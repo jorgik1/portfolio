@@ -2,7 +2,7 @@ interface DesktopProps {
   onAppOpen: (appId: string) => void;
 }
 
-const Desktop = ({ onAppOpen }: DesktopProps) => {
+const Desktop = ({ }: DesktopProps) => {
   // Desktop can have desktop icons if needed
   // For now, we'll keep it clean with just the background
 

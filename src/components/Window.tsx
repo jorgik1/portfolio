@@ -1,5 +1,5 @@
-import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { GlassCard } from './GlassCard';
 import AboutContent from './windows/AboutContent';
 import ProjectsContent from './windows/ProjectsContent';
