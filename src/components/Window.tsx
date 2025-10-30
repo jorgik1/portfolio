@@ -4,6 +4,8 @@ import { GlassCard } from './GlassCard';
 import AboutContent from './windows/AboutContent';
 import ProjectsContent from './windows/ProjectsContent';
 import ContactContent from './windows/ContactContent';
+import TerminalContent from './windows/TerminalContent';
+import GitHubStatsContent from './windows/GitHubStatsContent';
 
 interface WindowProps {
   appId: string;
@@ -21,12 +23,16 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
     about: <AboutContent />,
     projects: <ProjectsContent />,
     contact: <ContactContent />,
+    terminal: <TerminalContent />,
+    github: <GitHubStatsContent />,
   };
 
   const windowTitles: Record<string, string> = {
     about: 'About Me',
     projects: 'My Projects',
     contact: 'Get in Touch',
+    terminal: 'Terminal',
+    github: 'GitHub Stats',
   };
 
   // Handle minimize with genie effect

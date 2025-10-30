@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { GlassCard } from './GlassCard';
-import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaUser } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaUser, FaTerminal, FaChartBar } from 'react-icons/fa';
 
 interface DockProps {
   onAppOpen: (appId: string) => void;
@@ -10,9 +10,11 @@ const Dock = ({ onAppOpen }: DockProps) => {
   const apps = [
     { id: 'about', icon: FaUser, label: 'About Me', color: '#3b82f6' },
     { id: 'projects', icon: FaCode, label: 'Projects', color: '#8b5cf6' },
-    { id: 'github', icon: FaGithub, label: 'GitHub', color: '#333333', link: 'https://github.com/jorgik1' },
-    { id: 'linkedin', icon: FaLinkedin, label: 'LinkedIn', color: '#0077b5', link: 'https://www.linkedin.com/in/yuriy-stenin/' },
+    { id: 'terminal', icon: FaTerminal, label: 'Terminal', color: '#10b981' },
+    { id: 'github', icon: FaChartBar, label: 'GitHub Stats', color: '#f59e0b' },
     { id: 'contact', icon: FaEnvelope, label: 'Contact', color: '#ef4444' },
+    { id: 'github-link', icon: FaGithub, label: 'GitHub', color: '#333333', link: 'https://github.com/jorgik1' },
+    { id: 'linkedin', icon: FaLinkedin, label: 'LinkedIn', color: '#0077b5', link: 'https://www.linkedin.com/in/yuriy-stenin/' },
   ];
 
   const handleAppClick = (app: typeof apps[0]) => {

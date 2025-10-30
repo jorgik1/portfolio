@@ -69,6 +69,43 @@ const AboutContent = () => {
           ))}
         </div>
       </div>
+
+      {/* Download CV Button */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8 }}
+        className="mt-8 p-6 rounded-xl bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-white/20"
+      >
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h3 className="text-xl font-semibold mb-2">📝 Download My Resume</h3>
+            <p className="text-gray-300 text-sm">
+              Get a detailed PDF of my experience, skills, and education
+            </p>
+          </div>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              // For now, open LinkedIn profile
+              // In production, replace with actual PDF download
+              const confirmed = window.confirm(
+                '📄 CV Download\n\n' +
+                'For the full CV experience, please visit my LinkedIn profile.\n' +
+                'Would you like to open it now?\n\n' +
+                'Note: You can also add a direct PDF link here later!'
+              );
+              if (confirmed) {
+                window.open('https://www.linkedin.com/in/yuriy-stenin/', '_blank');
+              }
+            }}
+            className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 rounded-lg font-medium shadow-lg hover:shadow-purple-500/50 transition-all"
+          >
+            💾 Download CV (PDF)
+          </motion.button>
+        </div>
+      </motion.div>
     </motion.div>
   );
 };
