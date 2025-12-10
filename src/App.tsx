@@ -23,10 +23,11 @@ function App() {
 
   const getBackgroundStyle = () => {
     const wallpapers: Record<string, string> = {
-      ventura: 'url("https://512pixels.net/downloads/macos-wallpapers-6k/13-macos-ventura-light.jpg")',
-      monterey: 'url("https://512pixels.net/downloads/macos-wallpapers-6k/12-macos-monterey-light.jpg")',
-      bigsur: 'url("https://512pixels.net/downloads/macos-wallpapers-6k/11-big-sur-light.jpg")',
-      sonoma: 'url("https://4kwallpapers.com/images/wallpapers/macos-sonoma-stock-5k-6016x3384-11666.jpg")',
+      ventura: 'url("https://512pixels.net/wp-content/uploads/2025/08/26-Tahoe-Beach-Dawn-thumb.jpeg")',
+      monterey: 'url("https://512pixels.net/wp-content/uploads/2025/08/26-Tahoe-Beach-Dusk-thumb.jpeg")',
+      bigsur: 'url("https://512pixels.net/wp-content/uploads/2025/06/15-Sequoia-Dark-thumbnail.jpg")',
+      sonoma: 'url("https://512pixels.net/wp-content/uploads/2025/06/14-Sonoma-Horizon-thumb.jpeg")',
+      default: 'url("https://512pixels.net/wp-content/uploads/2025/06/13-Ventura-Dark-thumb.jpg")',
     };
 
     if (wallpapers[wallpaper]) {
