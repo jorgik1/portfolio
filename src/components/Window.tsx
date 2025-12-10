@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { useState, Suspense, lazy } from 'react';
 import { GlassCard } from './GlassCard';
+import { useSettings } from '../context/SettingsContext';
+
 const AboutContent = lazy(() => import('./windows/AboutContent'));
 const ProjectsContent = lazy(() => import('./windows/ProjectsContent'));
 const ContactContent = lazy(() => import('./windows/ContactContent'));
@@ -21,6 +23,7 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [isMinimizing, setIsMinimizing] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const { isDarkMode } = useSettings();
 
   const windowContent: Record<string, JSX.Element> = {
     about: <AboutContent />,
@@ -33,6 +36,7 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
     settings: <SettingsContent />,
   };
 
+  // Title map ...
   const windowTitles: Record<string, string> = {
     about: 'About Me',
     projects: 'My Projects',
@@ -44,7 +48,7 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
     settings: 'System Settings',
   };
 
-  // Handle minimize with genie effect
+  // ... handlers ...
   const handleMinimize = () => {
     setIsMinimizing(true);
     setTimeout(() => {
@@ -54,7 +58,6 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
     }, 600);
   };
 
-  // Handle maximize with smooth animation
   const handleMaximize = () => {
     setIsMaximized(!isMaximized);
   };
@@ -66,7 +69,6 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
       dragElastic={0.05}
       onDragStart={() => setIsDragging(true)}
       onDragEnd={() => setIsDragging(false)}
-      // Opening animation - Scale up from dock with spring physics
       initial={{
         scale: 0.3,
         opacity: 0,
@@ -84,7 +86,6 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
         left: isMaximized ? 0 : '50%',
         rotateX: isDragging ? 2 : 0,
       }}
-      // Closing animation - Scale down and fade
       exit={{
         scale: 0.8,
         opacity: 0,
@@ -110,71 +111,46 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
     >
       <GlassCard
         variant={isActive ? 'active-window' : 'default'}
-        className="w-full h-full flex flex-col overflow-hidden"
+        className={`w-full h-full flex flex-col overflow-hidden ${!isDarkMode ? 'shadow-lg bg-white/40' : ''}`}
       >
         {/* Title Bar */}
         <motion.div
-          className="flex items-center justify-between px-4 py-3 border-b border-white/10 cursor-move"
+          className={`flex items-center justify-between px-4 py-3 border-b cursor-move ${isDarkMode ? 'border-white/10' : 'border-black/5'}`}
           animate={{
-            backgroundColor: isActive ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.05)'
+            backgroundColor: isActive
+              ? (isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.4)')
+              : (isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.2)'),
           }}
         >
           <div className="flex items-center gap-2">
-            {/* macOS Traffic Lights with hover effects */}
             <motion.button
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
-              onClick={(e) => {
-                e.stopPropagation();
-                onClose();
-              }}
+              onClick={(e) => { e.stopPropagation(); onClose(); }}
               className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 relative group"
-              transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-              aria-label="Close window"
             >
-              {/* X icon on hover */}
-              <span className="absolute inset-0 flex items-center justify-center text-red-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">
-                ×
-              </span>
+               <span className="absolute inset-0 flex items-center justify-center text-red-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">×</span>
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleMinimize();
-              }}
+              onClick={(e) => { e.stopPropagation(); handleMinimize(); }}
               className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600 relative group"
-              transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-              aria-label="Minimize window"
             >
-              {/* Minus icon on hover */}
-              <span className="absolute inset-0 flex items-center justify-center text-yellow-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">
-                −
-              </span>
+               <span className="absolute inset-0 flex items-center justify-center text-yellow-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">−</span>
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleMaximize();
-              }}
+              onClick={(e) => { e.stopPropagation(); handleMaximize(); }}
               className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-600 relative group"
-              transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-              aria-label="Maximize window"
             >
-              {/* Plus/Arrows icon on hover */}
-              <span className="absolute inset-0 flex items-center justify-center text-green-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">
-                {isMaximized ? '⇙' : '⇗'}
-              </span>
+               <span className="absolute inset-0 flex items-center justify-center text-green-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">{isMaximized ? '⇙' : '⇗'}</span>
             </motion.button>
           </div>
           <motion.h2
-            className="text-white font-medium absolute left-1/2 transform -translate-x-1/2 pointer-events-none"
-            animate={{
-              opacity: isDragging ? 0.7 : 1
-            }}
+            className={`font-medium absolute left-1/2 transform -translate-x-1/2 pointer-events-none ${isDarkMode ? 'text-white' : 'text-gray-800'}`}
+            animate={{ opacity: isDragging ? 0.7 : 1 }}
           >
             {windowTitles[appId] || 'Window'}
           </motion.h2>
@@ -182,24 +158,21 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
 
         {/* Content */}
         <motion.div
-          className="flex-1 overflow-y-auto p-6 custom-scrollbar"
+          className={`flex-1 overflow-y-auto p-6 scroll-smooth custom-scrollbar ${isDarkMode ? 'text-white' : 'text-gray-900'}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.3 }}
         >
-          <Suspense fallback={<div className="text-white p-6">Loading...</div>}>
-            {windowContent[appId] || <div className="text-white">Content not found</div>}
+          <Suspense fallback={<div className={`p-6 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>Loading...</div>}>
+            {windowContent[appId] || <div>Content not found</div>}
           </Suspense>
         </motion.div>
       </GlassCard>
 
-      {/* Shadow effect that grows when dragging */}
+      {/* Shadow */}
       <motion.div
         className="absolute inset-0 rounded-2xl pointer-events-none"
-        style={{
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-          zIndex: -1,
-        }}
+        style={{ zIndex: -1 }}
         animate={{
           boxShadow: isDragging
             ? '0 35px 60px -15px rgba(0, 0, 0, 0.4)'
@@ -209,5 +182,6 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
     </motion.div>
   );
 };
+
 
 export default Window;

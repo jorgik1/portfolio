@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 type Theme = 'auto' | 'light' | 'dark';
-type Wallpaper = 'default' | 'nature' | 'abstract';
+type Wallpaper = 'ventura' | 'monterey' | 'bigsur' | 'sonoma';
 
 interface SettingsContextType {
   theme: Theme;

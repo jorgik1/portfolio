@@ -21,14 +21,22 @@ function App() {
     setIsLoading(false);
   };
 
-  const getBackgroundClass = () => {
-    if (wallpaper === 'nature') return 'bg-gradient-to-br from-green-600 to-teal-900';
-    if (wallpaper === 'abstract') return 'bg-gradient-to-br from-orange-400 to-red-900';
+  const getBackgroundStyle = () => {
+    const wallpapers: Record<string, string> = {
+      ventura: 'url("https://512pixels.net/downloads/macos-wallpapers-6k/13-macos-ventura-light.jpg")',
+      monterey: 'url("https://512pixels.net/downloads/macos-wallpapers-6k/12-macos-monterey-light.jpg")',
+      bigsur: 'url("https://512pixels.net/downloads/macos-wallpapers-6k/11-big-sur-light.jpg")',
+      sonoma: 'url("https://4kwallpapers.com/images/wallpapers/macos-sonoma-stock-5k-6016x3384-11666.jpg")',
+    };
 
-    // Default dynamic
+    if (wallpapers[wallpaper]) {
+      return { backgroundImage: wallpapers[wallpaper] };
+    }
+
+    // Default to a fallback if nothing matches (or initially)
     return isDarkMode
-      ? 'bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900'
-      : 'bg-gradient-to-br from-blue-400 via-blue-300 to-blue-200';
+      ? { backgroundImage: 'linear-gradient(to bottom right, #3b82f6, #1e40af, #4c1d95)' }
+      : { backgroundImage: 'linear-gradient(to bottom right, #60a5fa, #93c5fd, #bfdbfe)' };
   };
 
   const handleAppOpen = (appId: string) => {
@@ -56,7 +64,8 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className={`h-screen w-screen overflow-hidden relative bg-cover bg-center transition-all duration-1000 ${getBackgroundClass()}`}
+            className="h-screen w-screen overflow-hidden relative bg-cover bg-center transition-all duration-1000"
+            style={getBackgroundStyle()}
           >
             {/* Animated background blur circles */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">

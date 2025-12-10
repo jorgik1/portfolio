@@ -5,9 +5,10 @@ const SettingsContent = () => {
   const { theme, setTheme, wallpaper, setWallpaper, soundEnabled, setSoundEnabled } = useSettings();
 
   const wallpapers = [
-    { id: 'default', name: 'macOS Dynamic', color: 'bg-gradient-to-br from-purple-500 to-blue-500' },
-    { id: 'nature', name: 'Nature', color: 'bg-gradient-to-br from-green-500 to-teal-700' },
-    { id: 'abstract', name: 'Abstract', color: 'bg-gradient-to-br from-orange-500 to-red-600' },
+    { id: 'ventura', name: 'Ventura', color: 'bg-[#FCA061]' },
+    { id: 'monterey', name: 'Monterey', color: 'bg-[#C75D8F]' },
+    { id: 'bigsur', name: 'Big Sur', color: 'bg-[#5589E8]' },
+    { id: 'sonoma', name: 'Sonoma', color: 'bg-[#7EAAA0]' },
   ];
 
   return (
