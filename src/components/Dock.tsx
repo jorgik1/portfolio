@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { GlassCard } from './GlassCard';
-import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaUser, FaTerminal, FaChartBar } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaUser, FaTerminal, FaChartBar, FaSafari } from 'react-icons/fa';
+import { VscCode } from 'react-icons/vsc';
 import { portfolioConfig } from '../data/portfolio';
 
 interface DockProps {
@@ -11,7 +12,9 @@ const Dock = ({ onAppOpen }: DockProps) => {
   const apps = [
     { id: 'about', icon: FaUser, label: 'About Me', color: '#3b82f6' },
     { id: 'projects', icon: FaCode, label: 'Projects', color: '#8b5cf6' },
+    { id: 'vscode', icon: VscCode, label: 'Skills', color: '#23a9f2' },
     { id: 'terminal', icon: FaTerminal, label: 'Terminal', color: '#10b981' },
+    { id: 'browser', icon: FaSafari, label: 'Safari', color: '#2563eb' },
     { id: 'github', icon: FaChartBar, label: 'GitHub Stats', color: '#f59e0b' },
     { id: 'contact', icon: FaEnvelope, label: 'Contact', color: '#ef4444' },
     { id: 'github-link', icon: FaGithub, label: 'GitHub', color: '#333333', link: portfolioConfig.personal.github },

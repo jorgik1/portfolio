@@ -6,6 +6,8 @@ const ProjectsContent = lazy(() => import('./windows/ProjectsContent'));
 const ContactContent = lazy(() => import('./windows/ContactContent'));
 const TerminalContent = lazy(() => import('./windows/TerminalContent'));
 const GitHubStatsContent = lazy(() => import('./windows/GitHubStatsContent'));
+const VSCodeContent = lazy(() => import('./windows/VSCodeContent'));
+const BrowserContent = lazy(() => import('./windows/BrowserContent'));
 
 interface WindowProps {
   appId: string;
@@ -25,6 +27,8 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
     contact: <ContactContent />,
     terminal: <TerminalContent />,
     github: <GitHubStatsContent />,
+    vscode: <VSCodeContent />,
+    browser: <BrowserContent />,
   };
 
   const windowTitles: Record<string, string> = {
@@ -33,6 +37,8 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
     contact: 'Get in Touch',
     terminal: 'Terminal',
     github: 'GitHub Stats',
+    vscode: 'Visual Studio Code',
+    browser: 'Safari',
   };
 
   // Handle minimize with genie effect
