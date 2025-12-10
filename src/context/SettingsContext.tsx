@@ -52,6 +52,15 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 
   const isDarkMode = theme === 'auto' ? timeBasedDark : theme === 'dark';
 
+  // Apply dark mode class to html element
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+
   return (
     <SettingsContext.Provider
       value={{
