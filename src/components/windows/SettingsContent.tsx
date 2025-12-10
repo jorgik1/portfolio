@@ -110,10 +110,11 @@ const SettingsContent = () => {
                        <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-110" style={{ backgroundColor: wp.color }}>
                          <img
                            src={
-                             wp.id === 'ventura' ? 'https://4kwallpapers.com/images/wallpapers/macos-ventura-light-5k-retina-stock-graphics-gradient-orange-3840x2160-8041.jpg' :
-                             wp.id === 'monterey' ? 'https://4kwallpapers.com/images/wallpapers/macos-monterey-stock-purple-dark-mode-layers-5k-4480x2520-5889.jpg' :
-                             wp.id === 'bigsur' ? 'https://4kwallpapers.com/images/wallpapers/macos-big-sur-apple-layers-fluidic-colorful-wwdc-2020-5k-5120x2880-1455.jpg' :
-                             'https://4kwallpapers.com/images/wallpapers/macos-sonoma-light-blue-orange-stock-4k-8k-3840x2160-9118.jpg'
+                             wp.id === 'ventura' ? 'https://512pixels.net/wp-content/uploads/2025/08/26-Tahoe-Beach-Dawn-thumb.jpeg' :
+                             wp.id === 'monterey' ? 'https://512pixels.net/wp-content/uploads/2025/08/26-Tahoe-Beach-Dusk-thumb.jpeg' :
+                             wp.id === 'bigsur' ? 'https://512pixels.net/wp-content/uploads/2025/06/15-Sequoia-Dark-thumbnail.jpg' :
+                             wp.id === 'sonoma' ? 'https://512pixels.net/wp-content/uploads/2025/06/14-Sonoma-Horizon-thumb.jpeg' :
+                             'https://512pixels.net/wp-content/uploads/2025/06/13-Ventura-Dark-thumb.jpg'
                            }
                            alt={wp.name}
                            className="w-full h-full object-cover"
