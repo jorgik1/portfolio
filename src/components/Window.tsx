@@ -111,62 +111,64 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
     >
       <GlassCard
         variant={isActive ? 'active-window' : 'default'}
-        className={`w-full h-full flex flex-col overflow-hidden ${!isDarkMode ? 'shadow-lg bg-white/85' : ''}`}
+        className={`w-full h-full ${!isDarkMode ? 'shadow-lg bg-white/85' : ''}`}
       >
-        {/* Title Bar */}
-        <motion.div
-          className={`flex items-center justify-between px-4 py-3 border-b cursor-move ${isDarkMode ? 'border-white/10' : 'border-black/5'}`}
-          animate={{
-            backgroundColor: isActive
-              ? (isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.5)')
-              : (isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.3)'),
-          }}
-        >
-          <div className="flex items-center gap-2">
-            <motion.button
-              whileHover={{ scale: 1.3 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={(e) => { e.stopPropagation(); onClose(); }}
-              className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 relative group"
-            >
-               <span className="absolute inset-0 flex items-center justify-center text-red-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">×</span>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.3 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={(e) => { e.stopPropagation(); handleMinimize(); }}
-              className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600 relative group"
-            >
-               <span className="absolute inset-0 flex items-center justify-center text-yellow-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">−</span>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.3 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={(e) => { e.stopPropagation(); handleMaximize(); }}
-              className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-600 relative group"
-            >
-               <span className="absolute inset-0 flex items-center justify-center text-green-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">{isMaximized ? '⇙' : '⇗'}</span>
-            </motion.button>
-          </div>
-          <motion.h2
-            className={`font-medium absolute left-1/2 transform -translate-x-1/2 pointer-events-none ${isDarkMode ? 'text-white' : 'text-black'}`}
-            animate={{ opacity: isDragging ? 0.7 : 1 }}
+        <div className="flex flex-col w-full h-full overflow-hidden">
+          {/* Title Bar */}
+          <motion.div
+            className={`flex items-center justify-between px-4 py-3 border-b cursor-move ${isDarkMode ? 'border-white/10' : 'border-black/5'}`}
+            animate={{
+              backgroundColor: isActive
+                ? (isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.5)')
+                : (isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.3)'),
+            }}
           >
-            {windowTitles[appId] || 'Window'}
-          </motion.h2>
-        </motion.div>
+            <div className="flex items-center gap-2">
+              <motion.button
+                whileHover={{ scale: 1.3 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={(e) => { e.stopPropagation(); onClose(); }}
+                className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 relative group"
+              >
+                 <span className="absolute inset-0 flex items-center justify-center text-red-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">×</span>
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.3 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={(e) => { e.stopPropagation(); handleMinimize(); }}
+                className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600 relative group"
+              >
+                 <span className="absolute inset-0 flex items-center justify-center text-yellow-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">−</span>
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.3 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={(e) => { e.stopPropagation(); handleMaximize(); }}
+                className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-600 relative group"
+              >
+                 <span className="absolute inset-0 flex items-center justify-center text-green-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">{isMaximized ? '⇙' : '⇗'}</span>
+              </motion.button>
+            </div>
+            <motion.h2
+              className={`font-medium absolute left-1/2 transform -translate-x-1/2 pointer-events-none ${isDarkMode ? 'text-white' : 'text-black'}`}
+              animate={{ opacity: isDragging ? 0.7 : 1 }}
+            >
+              {windowTitles[appId] || 'Window'}
+            </motion.h2>
+          </motion.div>
 
-        {/* Content */}
-        <motion.div
-          className={`flex-1 overflow-y-auto p-6 scroll-smooth custom-scrollbar ${isDarkMode ? 'text-white' : 'text-black'}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.3 }}
-        >
-          <Suspense fallback={<div className={`p-6 ${isDarkMode ? 'text-white' : 'text-black'}`}>Loading...</div>}>
-            {windowContent[appId] || <div>Content not found</div>}
-          </Suspense>
-        </motion.div>
+          {/* Content */}
+          <motion.div
+            className={`flex-1 overflow-y-auto p-6 scroll-smooth custom-scrollbar ${isDarkMode ? 'text-white' : 'text-black'}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.3 }}
+          >
+            <Suspense fallback={<div className={`p-6 ${isDarkMode ? 'text-white' : 'text-black'}`}>Loading...</div>}>
+              {windowContent[appId] || <div>Content not found</div>}
+            </Suspense>
+          </motion.div>
+        </div>
       </GlassCard>
 
       {/* Shadow */}
