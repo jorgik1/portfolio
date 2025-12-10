@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { FaGithub, FaStar, FaCodeBranch, FaBook } from 'react-icons/fa';
+import { portfolioConfig } from '../../data/portfolio';
 
 interface GitHubStats {
   public_repos: number;
@@ -32,21 +33,37 @@ const GitHubStatsContent = () => {
   useEffect(() => {
     const fetchGitHubData = async () => {
       try {
+        const username = portfolioConfig.personal.githubUsername;
+
         // Fetch user stats
-        const userResponse = await fetch('https://api.github.com/users/jorgik1');
+        const userResponse = await fetch(`https://api.github.com/users/${username}`);
+
+        if (userResponse.status === 403) {
+            throw new Error('Rate limit exceeded');
+        }
+
         if (!userResponse.ok) throw new Error('Failed to fetch GitHub data');
         const userData = await userResponse.json();
         setStats(userData);
 
         // Fetch repositories
-        const reposResponse = await fetch('https://api.github.com/users/jorgik1/repos?sort=updated&per_page=6');
+        const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`);
+
+        if (reposResponse.status === 403) {
+            throw new Error('Rate limit exceeded');
+        }
+
         if (!reposResponse.ok) throw new Error('Failed to fetch repositories');
         const reposData = await reposResponse.json();
         setRepos(reposData);
 
         setLoading(false);
       } catch (err) {
-        setError('Failed to load GitHub data. Please try again later.');
+        if (err instanceof Error && err.message === 'Rate limit exceeded') {
+            setError('GitHub API rate limit exceeded. Please try again later.');
+        } else {
+            setError('Failed to load GitHub data. Please try again later.');
+        }
         setLoading(false);
       }
     };
@@ -73,12 +90,12 @@ const GitHubStatsContent = () => {
           <p className="text-red-400 mb-4">{error}</p>
           <p className="text-gray-400">Visit my GitHub directly:</p>
           <a
-            href="https://github.com/jorgik1"
+            href={portfolioConfig.personal.github}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-400 hover:underline"
           >
-            github.com/jorgik1
+            {portfolioConfig.personal.github.replace('https://', '')}
           </a>
         </div>
       </div>
@@ -108,14 +125,14 @@ const GitHubStatsContent = () => {
           <h2 className="text-3xl font-bold mb-2">{stats.name}</h2>
           <p className="text-gray-300 mb-2">{stats.bio}</p>
           <motion.a
-            href="https://github.com/jorgik1"
+            href={portfolioConfig.personal.github}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300"
           >
             <FaGithub />
-            @jorgik1
+            @{portfolioConfig.personal.githubUsername}
           </motion.a>
         </div>
       </div>
@@ -193,7 +210,7 @@ const GitHubStatsContent = () => {
       {/* View All Button */}
       <motion.div className="flex justify-center">
         <motion.a
-          href="https://github.com/jorgik1?tab=repositories"
+          href={`${portfolioConfig.personal.github}?tab=repositories`}
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.05 }}

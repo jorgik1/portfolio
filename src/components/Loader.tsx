@@ -15,13 +15,11 @@ const Loader = ({ onLoadComplete }: LoaderProps) => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          // Wait a bit before fading out
           setTimeout(() => {
             onLoadComplete();
-          }, 300);
+          }, 500);
           return 100;
         }
-        // Random increment for more realistic loading
         return prev + Math.random() * 15;
       });
     }, 150);
@@ -75,7 +73,7 @@ const Loader = ({ onLoadComplete }: LoaderProps) => {
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <motion.div
-            animate={{ 
+            animate={{
               scale: [1, 1.05, 1],
             }}
             transition={{
@@ -114,7 +112,7 @@ const Loader = ({ onLoadComplete }: LoaderProps) => {
               transition={{ duration: 0.3, ease: "easeOut" }}
             />
           </div>
-          
+
           {/* Progress percentage */}
           <motion.div
             className="text-white/60 text-sm text-center mt-3 font-light"

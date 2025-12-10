@@ -11,6 +11,8 @@ function App() {
   const [openWindows, setOpenWindows] = useState<string[]>([]);
   const [activeWindow, setActiveWindow] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const hour = new Date().getHours();
+  const isDay = hour >= 6 && hour < 18;
 
   usePreventOverflow();
 
@@ -43,7 +45,11 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="h-screen w-screen overflow-hidden bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative"
+            className={`h-screen w-screen overflow-hidden relative bg-cover bg-center transition-all duration-1000 ${
+              isDay
+                ? 'bg-gradient-to-br from-blue-400 via-blue-300 to-blue-200'
+                : 'bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900'
+            }`}
           >
             {/* Animated background blur circles */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -90,7 +96,7 @@ function App() {
 
             <MenuBar />
             <Desktop onAppOpen={handleAppOpen} />
-            
+
             {/* Render open windows */}
             {openWindows.map((appId) => (
               <Window
@@ -101,7 +107,7 @@ function App() {
                 onFocus={() => setActiveWindow(appId)}
               />
             ))}
-            
+
             <Dock onAppOpen={handleAppOpen} />
           </motion.div>
         )}

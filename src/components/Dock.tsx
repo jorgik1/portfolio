@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { GlassCard } from './GlassCard';
 import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaUser, FaTerminal, FaChartBar } from 'react-icons/fa';
+import { portfolioConfig } from '../data/portfolio';
 
 interface DockProps {
   onAppOpen: (appId: string) => void;
@@ -13,8 +14,8 @@ const Dock = ({ onAppOpen }: DockProps) => {
     { id: 'terminal', icon: FaTerminal, label: 'Terminal', color: '#10b981' },
     { id: 'github', icon: FaChartBar, label: 'GitHub Stats', color: '#f59e0b' },
     { id: 'contact', icon: FaEnvelope, label: 'Contact', color: '#ef4444' },
-    { id: 'github-link', icon: FaGithub, label: 'GitHub', color: '#333333', link: 'https://github.com/jorgik1' },
-    { id: 'linkedin', icon: FaLinkedin, label: 'LinkedIn', color: '#0077b5', link: 'https://www.linkedin.com/in/yuriy-stenin/' },
+    { id: 'github-link', icon: FaGithub, label: 'GitHub', color: '#333333', link: portfolioConfig.personal.github },
+    { id: 'linkedin', icon: FaLinkedin, label: 'LinkedIn', color: '#0077b5', link: portfolioConfig.personal.linkedin },
   ];
 
   const handleAppClick = (app: typeof apps[0]) => {
@@ -37,10 +38,11 @@ const Dock = ({ onAppOpen }: DockProps) => {
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
               onClick={() => handleAppClick(app)}
+              aria-label={app.label}
             >
               {/* Tooltip */}
               <motion.div
-                className="absolute -top-12 left-1/2 transform -translate-x-1/2 
+                className="absolute -top-12 left-1/2 transform -translate-x-1/2
                            bg-gray-900/90 text-white text-xs px-3 py-1 rounded-lg
                            whitespace-nowrap opacity-0 group-hover:opacity-100
                            pointer-events-none transition-opacity z-10"
