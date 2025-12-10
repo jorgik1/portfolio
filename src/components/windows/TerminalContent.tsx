@@ -112,7 +112,7 @@ const TerminalContent = () => {
       {/* Input Line */}
       <form onSubmit={handleSubmit} className="p-4 border-t border-white/10">
         <div className="flex items-center gap-2">
-          <span className="text-green-400 font-semibold">$</span>
+          <span className="text-green-400 font-semibold w-auto">$</span>
           <input
             type="text"
             value={input}

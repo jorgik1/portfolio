@@ -21,9 +21,9 @@ const SettingsContent = () => {
   ] as const;
 
   return (
-    <div className={`flex h-full ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+    <div className={`flex h-full ${isDarkMode ? 'text-white' : 'text-black'}`}>
       {/* Sidebar */}
-      <div className={`w-48 flex-shrink-0 border-r ${isDarkMode ? 'border-white/10 bg-black/20' : 'border-gray-200 bg-white/40'} backdrop-blur-md pt-4 px-2`}>
+      <div className={`w-48 flex-shrink-0 border-r ${isDarkMode ? 'border-white/10 bg-black/20' : 'border-gray-300 bg-white/60'} backdrop-blur-md pt-4 px-2`}>
         <div className="mb-6 px-3">
           <div className="w-12 h-12 rounded-full bg-gray-300 mb-2 overflow-hidden mx-auto shadow-sm">
              <div className="w-full h-full bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center text-white text-xl">
@@ -31,7 +31,7 @@ const SettingsContent = () => {
              </div>
           </div>
           <h2 className="text-sm font-semibold text-center mb-0.5">System Settings</h2>
-          <p className={`text-[10px] text-center ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>MacBook Pro</p>
+          <p className={`text-[10px] text-center ${isDarkMode ? 'text-gray-400' : 'text-gray-600 font-medium'}`}>MacBook Pro</p>
         </div>
 
         <nav className="space-y-0.5">
@@ -39,10 +39,10 @@ const SettingsContent = () => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors
+              className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors font-medium
                 ${activeTab === tab.id
-                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white shadow-sm')
-                  : (isDarkMode ? 'hover:bg-white/10' : 'hover:bg-black/5')}
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : (isDarkMode ? 'hover:bg-white/10 text-gray-300' : 'hover:bg-black/10 text-gray-700')}
               `}
             >
               <div className={`w-5 h-5 rounded flex items-center justify-center text-[10px] text-white ${tab.color}`}>
@@ -55,7 +55,7 @@ const SettingsContent = () => {
       </div>
 
       {/* Content */}
-      <div className={`flex-1 p-8 overflow-y-auto ${isDarkMode ? 'bg-black/10' : 'bg-[#f5f5f7]/50'}`}>
+      <div className={`flex-1 p-8 overflow-y-auto ${isDarkMode ? 'bg-black/10' : 'bg-[#f5f5f7]/80'}`}>
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -67,10 +67,10 @@ const SettingsContent = () => {
           >
             {activeTab === 'appearance' && (
               <section className="space-y-6">
-                <h3 className="text-xl font-semibold mb-6">Appearance</h3>
+                <h3 className="text-xl font-bold mb-6">Appearance</h3>
 
-                <div className={`p-4 rounded-xl border ${isDarkMode ? 'bg-white/5 border-white/10' : 'bg-white border-gray-200 shadow-sm'}`}>
-                  <label className="text-sm font-medium mb-4 block">Window Appearance</label>
+                <div className={`p-4 rounded-xl border ${isDarkMode ? 'bg-white/5 border-white/10' : 'bg-white border-gray-300 shadow-sm'}`}>
+                  <label className="text-sm font-bold mb-4 block">Window Appearance</label>
                   <div className="grid grid-cols-3 gap-4">
                     {[
                       { id: 'light', label: 'Light', icon: FaSun },
@@ -82,12 +82,12 @@ const SettingsContent = () => {
                         onClick={() => setTheme(mode.id as any)}
                         className={`flex flex-col items-center gap-3 p-4 rounded-lg border-2 transition-all
                           ${theme === mode.id
-                            ? 'border-blue-500 bg-blue-500/10'
-                            : (isDarkMode ? 'border-transparent hover:bg-white/5' : 'border-transparent hover:bg-black/5')}
+                            ? 'border-blue-500 bg-blue-500/20 ring-2 ring-blue-500/30'
+                            : (isDarkMode ? 'border-transparent hover:bg-white/5' : 'border-transparent hover:bg-black/5 bg-gray-50')}
                         `}
                       >
                          <div className={`w-12 h-8 rounded border shadow-sm ${mode.id === 'dark' ? 'bg-gray-800' : mode.id === 'light' ? 'bg-white' : 'bg-gradient-to-r from-white to-gray-800'}`}></div>
-                         <span className="text-xs font-medium">{mode.label}</span>
+                         <span className={`text-xs font-bold ${theme === mode.id ? 'text-blue-600 dark:text-blue-400' : ''}`}>{mode.label}</span>
                       </button>
                     ))}
                   </div>
@@ -97,14 +97,14 @@ const SettingsContent = () => {
 
             {activeTab === 'wallpaper' && (
               <section className="space-y-6">
-                 <h3 className="text-xl font-semibold mb-6">Wallpaper</h3>
+                 <h3 className="text-xl font-bold mb-6">Wallpaper</h3>
                  <div className="grid grid-cols-2 gap-4">
                    {wallpapers.map((wp) => (
                      <button
                        key={wp.id}
                        onClick={() => setWallpaper(wp.id as any)}
                        className={`group relative aspect-video rounded-xl overflow-hidden border-2 transition-all
-                         ${wallpaper === wp.id ? 'border-blue-500 ring-2 ring-blue-500/30' : 'border-transparent'}
+                         ${wallpaper === wp.id ? 'border-blue-500 ring-2 ring-blue-500/30' : 'border-transparent shadow-sm'}
                        `}
                      >
                        <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-110" style={{ backgroundColor: wp.color }}>
@@ -120,7 +120,7 @@ const SettingsContent = () => {
                          />
                        </div>
                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                       <span className="absolute bottom-2 left-2 text-xs font-medium text-white drop-shadow-md bg-black/20 px-2 py-0.5 rounded-full backdrop-blur-sm">
+                       <span className="absolute bottom-2 left-2 text-xs font-bold text-white drop-shadow-md bg-black/30 px-2 py-0.5 rounded-full backdrop-blur-sm">
                          {wp.name}
                        </span>
                      </button>
@@ -131,15 +131,15 @@ const SettingsContent = () => {
 
             {activeTab === 'sound' && (
               <section className="space-y-6">
-                <h3 className="text-xl font-semibold mb-6">Sound</h3>
-                <div className={`p-4 rounded-xl border flex items-center justify-between ${isDarkMode ? 'bg-white/5 border-white/10' : 'bg-white border-gray-200 shadow-sm'}`}>
+                <h3 className="text-xl font-bold mb-6">Sound</h3>
+                <div className={`p-4 rounded-xl border flex items-center justify-between ${isDarkMode ? 'bg-white/5 border-white/10' : 'bg-white border-gray-300 shadow-sm'}`}>
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-gray-500/20 flex items-center justify-center">
                       <FaVolumeUp />
                     </div>
                     <div>
-                      <div className="font-medium">Play user interface sound effects</div>
-                      <div className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Play sound on startup and errors</div>
+                      <div className="font-bold">Play user interface sound effects</div>
+                      <div className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-600 font-medium'}`}>Play sound on startup and errors</div>
                     </div>
                   </div>
                   <button

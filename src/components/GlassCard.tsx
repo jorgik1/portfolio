@@ -11,7 +11,7 @@ export const GlassCard = ({ children, className = '', variant = 'default', ...pr
   const getVariantClasses = () => {
     switch (variant) {
       case 'active-window':
-        return 'backdrop-blur-2xl bg-white/15 border-white/30 shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]';
+        return 'backdrop-blur-2xl bg-white/15 border-white/30 shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] dark:border-white/30 border-black/5';
       case 'sidebar':
         return 'backdrop-blur-md bg-black/20 border-white/5';
       default:
