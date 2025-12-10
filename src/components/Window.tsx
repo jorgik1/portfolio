@@ -159,7 +159,7 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
 
           {/* Content */}
           <motion.div
-            className={`flex-1 overflow-y-auto p-6 scroll-smooth custom-scrollbar ${isDarkMode ? 'text-white' : 'text-black'}`}
+            className={`flex-1 min-h-0 overflow-y-auto p-6 scroll-smooth custom-scrollbar ${isDarkMode ? 'text-white' : 'text-black'}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.3 }}

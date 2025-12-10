@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { useSettings } from '../../context/SettingsContext';
 
 const ProjectsContent = () => {
+  const { isDarkMode } = useSettings();
+
   const projects = [
     {
       title: 'Dark Sky PHP API Client',
@@ -64,9 +67,9 @@ const ProjectsContent = () => {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="text-3xl font-bold text-white">Featured Projects</h2>
-        <p className="text-gray-300">
-          A collection of projects showcasing my expertise in web development, 
+        <h2 className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Featured Projects</h2>
+        <p className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
+          A collection of projects showcasing my expertise in web development,
           API integrations, and real-time applications.
         </p>
       </div>
@@ -79,7 +82,10 @@ const ProjectsContent = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
             whileHover={{ scale: 1.02, y: -4 }}
-            className="group p-6 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer relative overflow-hidden"
+            className={`group p-6 rounded-xl border transition-all cursor-pointer relative overflow-hidden
+              ${isDarkMode
+                ? 'bg-white/5 border-white/10 hover:bg-white/10'
+                : 'bg-black/5 border-black/5 hover:bg-black/10'}`}
           >
             {/* Gradient overlay on hover */}
             <motion.div
@@ -88,7 +94,10 @@ const ProjectsContent = () => {
 
             <div className="relative z-10">
               <div className="flex justify-between items-start mb-3">
-                <h3 className="text-xl font-semibold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all">
+                <h3 className={`text-xl font-semibold transition-all
+                  ${isDarkMode ? 'text-white' : 'text-gray-900'}
+                  group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-100`}
+                >
                   {project.title}
                 </h3>
                 <div className="flex gap-2">
@@ -99,7 +108,7 @@ const ProjectsContent = () => {
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.2 }}
                       whileTap={{ scale: 0.9 }}
-                      className="text-gray-400 hover:text-white transition-colors"
+                      className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900'} transition-colors`}
                       onClick={(e) => e.stopPropagation()}
                     >
                       <FaExternalLinkAlt className="w-4 h-4" />
@@ -108,7 +117,7 @@ const ProjectsContent = () => {
                 </div>
               </div>
 
-              <p className="text-gray-300 mb-4 text-sm leading-relaxed">
+              <p className={`mb-4 text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 {project.description}
               </p>
 
@@ -117,7 +126,10 @@ const ProjectsContent = () => {
                   <motion.span
                     key={tech}
                     whileHover={{ scale: 1.05 }}
-                    className={`px-3 py-1 text-xs rounded-full bg-gradient-to-r ${project.gradient} bg-opacity-20 text-white border border-white/20`}
+                    className={`px-3 py-1 text-xs rounded-full border
+                      ${isDarkMode
+                        ? 'bg-white/10 text-white border-white/20'
+                        : 'bg-black/5 text-gray-800 border-black/10'}`}
                   >
                     {tech}
                   </motion.span>
@@ -132,10 +144,13 @@ const ProjectsContent = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
-        className="mt-8 p-6 rounded-xl bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-white/20"
+        className={`mt-8 p-6 rounded-xl border
+          ${isDarkMode
+            ? 'bg-gradient-to-r from-purple-500/20 to-blue-500/20 border-white/20'
+            : 'bg-gradient-to-r from-purple-500/10 to-blue-500/10 border-black/10'}`}
       >
-        <h3 className="text-xl font-semibold text-white mb-2">Want to see more?</h3>
-        <p className="text-gray-300 mb-4">
+        <h3 className={`text-xl font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Want to see more?</h3>
+        <p className={`mb-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
           Check out my GitHub profile for more projects and contributions to open source.
         </p>
         <motion.a
@@ -144,7 +159,10 @@ const ProjectsContent = () => {
           rel="noopener noreferrer"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 rounded-lg border border-white/20 text-white font-medium transition-all"
+          className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg border font-medium transition-all
+            ${isDarkMode
+              ? 'bg-white/10 hover:bg-white/20 border-white/20 text-white'
+              : 'bg-black/5 hover:bg-black/10 border-black/10 text-gray-900'}`}
         >
           <FaGithub className="w-5 h-5" />
           Visit GitHub Profile
