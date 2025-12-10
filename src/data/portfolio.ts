@@ -4,10 +4,11 @@ export const portfolioConfig = {
     name: "Yuriy Stenin",
     role: "Full Stack Developer | PHP & Drupal Expert",
     location: "Poland, Cracow",
-    email: "yurii.stenin@gmail.com",
+    email: "yuriy.ipcom@gmail.com",
     linkedin: "https://www.linkedin.com/in/yuriy-stenin/",
     github: "https://github.com/jorgik1",
-    githubUsername: "jorgik1"
+    githubUsername: "jorgik1",
+    recaptcha_key: "6LeQLMQUAAAAAFg4MiL5q9J2Oev1abWRlhr5cC2C"
   },
   terminal: {
     welcome: "Welcome to Yuriy's Terminal v1.0.0\nType \"help\" for available commands",

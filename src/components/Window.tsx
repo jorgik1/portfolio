@@ -111,15 +111,15 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
     >
       <GlassCard
         variant={isActive ? 'active-window' : 'default'}
-        className={`w-full h-full flex flex-col overflow-hidden ${!isDarkMode ? 'shadow-lg bg-white/40' : ''}`}
+        className={`w-full h-full flex flex-col overflow-hidden ${!isDarkMode ? 'shadow-lg bg-white/60' : ''}`}
       >
         {/* Title Bar */}
         <motion.div
           className={`flex items-center justify-between px-4 py-3 border-b cursor-move ${isDarkMode ? 'border-white/10' : 'border-black/5'}`}
           animate={{
             backgroundColor: isActive
-              ? (isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.4)')
-              : (isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.2)'),
+              ? (isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.5)')
+              : (isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.3)'),
           }}
         >
           <div className="flex items-center gap-2">
@@ -149,7 +149,7 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
             </motion.button>
           </div>
           <motion.h2
-            className={`font-medium absolute left-1/2 transform -translate-x-1/2 pointer-events-none ${isDarkMode ? 'text-white' : 'text-gray-800'}`}
+            className={`font-medium absolute left-1/2 transform -translate-x-1/2 pointer-events-none ${isDarkMode ? 'text-white' : 'text-black'}`}
             animate={{ opacity: isDragging ? 0.7 : 1 }}
           >
             {windowTitles[appId] || 'Window'}
@@ -158,12 +158,12 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
 
         {/* Content */}
         <motion.div
-          className={`flex-1 overflow-y-auto p-6 scroll-smooth custom-scrollbar ${isDarkMode ? 'text-white' : 'text-gray-900'}`}
+          className={`flex-1 overflow-y-auto p-6 scroll-smooth custom-scrollbar ${isDarkMode ? 'text-white' : 'text-black'}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.3 }}
         >
-          <Suspense fallback={<div className={`p-6 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>Loading...</div>}>
+          <Suspense fallback={<div className={`p-6 ${isDarkMode ? 'text-white' : 'text-black'}`}>Loading...</div>}>
             {windowContent[appId] || <div>Content not found</div>}
           </Suspense>
         </motion.div>

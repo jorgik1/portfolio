@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 type Theme = 'auto' | 'light' | 'dark';
-type Wallpaper = 'ventura' | 'monterey' | 'bigsur' | 'sonoma';
+type Wallpaper = 'ventura' | 'monterey' | 'bigsur' | 'sonoma' | 'default';
 
 interface SettingsContextType {
   theme: Theme;
@@ -21,9 +21,12 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(() =>
     (localStorage.getItem('theme') as Theme) || 'auto'
   );
-  const [wallpaper, setWallpaper] = useState<Wallpaper>(() =>
-    (localStorage.getItem('wallpaper') as Wallpaper) || 'default'
-  );
+  const [wallpaper, setWallpaper] = useState<Wallpaper>(() => {
+    const saved = localStorage.getItem('wallpaper') as Wallpaper;
+    // Validate that the saved wallpaper is a valid option, otherwise default
+    const validWallpapers: Wallpaper[] = ['ventura', 'monterey', 'bigsur', 'sonoma', 'default'];
+    return validWallpapers.includes(saved) ? saved : 'ventura';
+  });
   const [soundEnabled, setSoundEnabled] = useState(() =>
     localStorage.getItem('soundEnabled') !== 'false'
   );
