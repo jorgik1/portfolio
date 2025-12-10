@@ -111,7 +111,7 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
     >
       <GlassCard
         variant={isActive ? 'active-window' : 'default'}
-        className={`w-full h-full flex flex-col overflow-hidden ${!isDarkMode ? 'shadow-lg bg-white/60' : ''}`}
+        className={`w-full h-full flex flex-col overflow-hidden ${!isDarkMode ? 'shadow-lg bg-white/85' : ''}`}
       >
         {/* Title Bar */}
         <motion.div
