@@ -149,9 +149,6 @@ const ContactContent = () => {
 
             {/* Recaptcha */}
             <div className="flex flex-col gap-2">
-               {/* Hidden input to pass token to formspree */}
-               <input type="hidden" name="g-recaptcha-response" value={recaptchaToken} />
-
                <ReCAPTCHA
                  sitekey={recaptchaKey}
                  onChange={handleRecaptchaChange}
@@ -169,6 +166,16 @@ const ContactContent = () => {
                        text-white rounded-lg font-medium transition-all shadow-lg
                        hover:from-purple-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed
                        ${state.submitting ? 'animate-pulse' : ''}`}
+              onClick={(e) => {
+                e.preventDefault();
+                handleSubmit({
+                  'g-recaptcha-response': recaptchaToken,
+                  name: (document.getElementById('name') as HTMLInputElement).value,
+                  email: (document.getElementById('email') as HTMLInputElement).value,
+                  message: (document.getElementById('message') as HTMLInputElement).value,
+                  'form-name': 'portfolio-dev'
+                });
+              }}
             >
               {state.submitting ? 'Sending...' : 'Submit'}
             </motion.button>
