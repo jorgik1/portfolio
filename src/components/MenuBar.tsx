@@ -9,9 +9,13 @@ interface MenuItem {
   disabled?: boolean;
 }
 
-const MenuBar = () => {
+interface MenuBarProps {
+  onAppOpen: (appId: string) => void;
+}
+
+const MenuBar = ({ onAppOpen }: MenuBarProps) => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  
+
   const currentTime = new Date().toLocaleTimeString('en-US', {
     hour: '2-digit',
     minute: '2-digit',
@@ -26,6 +30,7 @@ const MenuBar = () => {
   const menuItems: Record<string, MenuItem[]> = {
     apple: [
       { label: 'About This Portfolio', action: 'about' },
+      { label: 'System Settings...', action: 'settings' },
       { label: '---' },
       { label: 'Built with React + TypeScript', action: 'tech' },
       { label: 'Styled with Tailwind CSS', action: 'tech' },
@@ -70,10 +75,13 @@ const MenuBar = () => {
 
   const handleMenuItemClick = (action: string) => {
     setActiveMenu(null);
-    
+
     switch(action) {
       case 'about':
         alert('👋 Yuriy Stenin - Full Stack Developer\n\nExpertise in PHP, Drupal, JavaScript, and Python.\nCommitted to Clean Code principles and building scalable web solutions.\n\n🎓 Education:\n• Master\'s in Cybersecurity\n• Bachelor\'s in Electrical Engineering');
+        break;
+      case 'settings':
+        onAppOpen('settings');
         break;
       case 'projects':
         alert('💻 My Projects\n\nFeatured Work:\n\n• Dark Sky PHP API Client\n• Real-time Data Visualization (D3.js)\n• WorldPay Payment Integration\n• Social Network Posts Module\n• Streaming Music Player\n• Django WebSocket System\n• E-commerce Platform (Drupal)\n\n🚀 Click the Projects icon in the dock to explore!');
@@ -145,7 +153,7 @@ const MenuBar = () => {
               >
                 <FaApple className="w-5 h-5" />
               </button>
-              
+
               <div className="flex items-center gap-1 text-sm font-medium">
                 <button
                   onClick={() => handleMenuClick('portfolio')}
@@ -198,7 +206,7 @@ const MenuBar = () => {
               className="fixed inset-0 z-40"
               onClick={() => setActiveMenu(null)}
             />
-            
+
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -207,7 +215,7 @@ const MenuBar = () => {
               className="fixed z-50"
               style={{
                 top: '60px',
-                left: activeMenu === 'apple' ? '20px' : 
+                left: activeMenu === 'apple' ? '20px' :
                       activeMenu === 'portfolio' ? '72px' :
                       activeMenu === 'file' ? '170px' :
                       activeMenu === 'edit' ? '220px' : '270px'

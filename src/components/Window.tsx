@@ -8,6 +8,7 @@ const TerminalContent = lazy(() => import('./windows/TerminalContent'));
 const GitHubStatsContent = lazy(() => import('./windows/GitHubStatsContent'));
 const VSCodeContent = lazy(() => import('./windows/VSCodeContent'));
 const BrowserContent = lazy(() => import('./windows/BrowserContent'));
+const SettingsContent = lazy(() => import('./windows/SettingsContent'));
 
 interface WindowProps {
   appId: string;
@@ -29,6 +30,7 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
     github: <GitHubStatsContent />,
     vscode: <VSCodeContent />,
     browser: <BrowserContent />,
+    settings: <SettingsContent />,
   };
 
   const windowTitles: Record<string, string> = {
@@ -39,6 +41,7 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
     github: 'GitHub Stats',
     vscode: 'Visual Studio Code',
     browser: 'Safari',
+    settings: 'System Settings',
   };
 
   // Handle minimize with genie effect
@@ -61,12 +64,6 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
       drag={!isMaximized && !isMinimizing}
       dragMomentum={false}
       dragElastic={0.05}
-      dragConstraints={{
-        top: 40,
-        left: 0,
-        right: 0,
-        bottom: 100,
-      }}
       onDragStart={() => setIsDragging(true)}
       onDragEnd={() => setIsDragging(false)}
       // Opening animation - Scale up from dock with spring physics

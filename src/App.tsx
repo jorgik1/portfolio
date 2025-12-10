@@ -6,18 +6,29 @@ import MenuBar from './components/MenuBar';
 import Window from './components/Window';
 import Loader from './components/Loader';
 import { usePreventOverflow } from './hooks/usePreventOverflow';
+import { useSettings } from './context/SettingsContext';
 
 function App() {
   const [openWindows, setOpenWindows] = useState<string[]>([]);
   const [activeWindow, setActiveWindow] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const hour = new Date().getHours();
-  const isDay = hour >= 6 && hour < 18;
+
+  const { isDarkMode, wallpaper } = useSettings();
 
   usePreventOverflow();
 
   const handleLoadComplete = () => {
     setIsLoading(false);
+  };
+
+  const getBackgroundClass = () => {
+    if (wallpaper === 'nature') return 'bg-gradient-to-br from-green-600 to-teal-900';
+    if (wallpaper === 'abstract') return 'bg-gradient-to-br from-orange-400 to-red-900';
+
+    // Default dynamic
+    return isDarkMode
+      ? 'bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900'
+      : 'bg-gradient-to-br from-blue-400 via-blue-300 to-blue-200';
   };
 
   const handleAppOpen = (appId: string) => {
@@ -45,11 +56,7 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className={`h-screen w-screen overflow-hidden relative bg-cover bg-center transition-all duration-1000 ${
-              isDay
-                ? 'bg-gradient-to-br from-blue-400 via-blue-300 to-blue-200'
-                : 'bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900'
-            }`}
+            className={`h-screen w-screen overflow-hidden relative bg-cover bg-center transition-all duration-1000 ${getBackgroundClass()}`}
           >
             {/* Animated background blur circles */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -94,7 +101,7 @@ function App() {
               />
             </div>
 
-            <MenuBar />
+            <MenuBar onAppOpen={handleAppOpen} />
             <Desktop onAppOpen={handleAppOpen} />
 
             {/* Render open windows */}
