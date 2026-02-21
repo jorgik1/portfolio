@@ -78,40 +78,35 @@ const MenuBar = ({ onAppOpen }: MenuBarProps) => {
 
     switch(action) {
       case 'about':
-        alert('👋 Yuriy Stenin - Full Stack Developer\n\nExpertise in PHP, Drupal, JavaScript, and Python.\nCommitted to Clean Code principles and building scalable web solutions.\n\n🎓 Education:\n• Master\'s in Cybersecurity\n• Bachelor\'s in Electrical Engineering');
+        onAppOpen('about');
         break;
       case 'settings':
         onAppOpen('settings');
         break;
       case 'projects':
-        alert('💻 My Projects\n\nFeatured Work:\n\n• Dark Sky PHP API Client\n• Real-time Data Visualization (D3.js)\n• WorldPay Payment Integration\n• Social Network Posts Module\n• Streaming Music Player\n• Django WebSocket System\n• E-commerce Platform (Drupal)\n\n🚀 Click the Projects icon in the dock to explore!');
+        onAppOpen('projects');
         break;
       case 'contact':
-        alert('✉️ Get in Touch\n\n📧 Email: yurii.stenin@gmail.com\n🐙 GitHub: github.com/jorgik1\n💼 LinkedIn: linkedin.com/in/yuriy-stenin/\n📍 Location: Poland, Andrzew\n\n💡 Click the Contact icon in the dock for the contact form!');
+        onAppOpen('contact');
         break;
       case 'tech':
       case 'tech-info':
-        alert('🛠️ Tech Stack\n\n' +
-          'Frontend:\n• React 18\n• TypeScript\n• Tailwind CSS\n• Framer Motion\n\n' +
-          'Build Tools:\n• Vite\n• PostCSS\n• ESLint\n\n' +
-          'Deployment:\n• Vercel (or your preferred platform)');
+        onAppOpen('vscode');
         break;
       case 'github':
-        window.open('https://github.com/jorgik1', '_blank');
+        window.open('https://github.com/jorgik1', '_blank', 'noopener,noreferrer');
         break;
       case 'linkedin':
-        window.open('https://www.linkedin.com/in/yuriy-stenin/', '_blank');
+        window.open('https://www.linkedin.com/in/yuriy-stenin/', '_blank', 'noopener,noreferrer');
         break;
       case 'cv':
-        alert('📄 CV Download\n\nIn a production version, this would download your CV PDF.\nFor now, visit my LinkedIn: linkedin.com/in/yuriy-stenin/');
+        window.open('https://www.linkedin.com/in/yuriy-stenin/', '_blank', 'noopener,noreferrer');
         break;
       case 'copy-email':
         navigator.clipboard.writeText('yurii.stenin@gmail.com');
-        alert('✅ Email copied to clipboard!\nyurii.stenin@gmail.com');
         break;
       case 'copy-github':
         navigator.clipboard.writeText('https://github.com/jorgik1');
-        alert('✅ GitHub link copied to clipboard!');
         break;
       case 'print':
         window.print();
@@ -124,14 +119,8 @@ const MenuBar = ({ onAppOpen }: MenuBarProps) => {
         }
         break;
       case 'show-all':
-        alert('💡 Tip: Click on the dock icons at the bottom to open windows!\n\n' +
-          '• About Me\n• Projects\n• Contact');
-        break;
-      case 'hide-all':
-        alert('💡 To close windows, click the red button (●) in the top-left corner of each window.');
-        break;
       case 'new':
-        alert('💡 Tip: Open new windows by clicking the dock icons at the bottom of the screen!');
+        onAppOpen('about');
         break;
       default:
         break;

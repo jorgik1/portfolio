@@ -67,7 +67,7 @@ const ProjectsContent = () => {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Featured Projects</h2>
+        <h2 className={`text-3xl font-display font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Featured Projects</h2>
         <p className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
           A collection of projects showcasing my expertise in web development,
           API integrations, and real-time applications.
@@ -149,7 +149,7 @@ const ProjectsContent = () => {
             ? 'bg-gradient-to-r from-purple-500/20 to-blue-500/20 border-white/20'
             : 'bg-gradient-to-r from-purple-500/10 to-blue-500/10 border-black/10'}`}
       >
-        <h3 className={`text-xl font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Want to see more?</h3>
+        <h3 className={`text-xl font-display font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Want to see more?</h3>
         <p className={`mb-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
           Check out my GitHub profile for more projects and contributions to open source.
         </p>

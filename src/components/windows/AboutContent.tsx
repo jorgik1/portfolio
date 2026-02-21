@@ -12,21 +12,21 @@ const AboutContent = () => {
     >
       <div className="flex items-center gap-6 flex-wrap">
         <motion.div
-          className="w-32 h-32 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-4xl font-bold shadow-2xl text-white"
+          className="w-32 h-32 rounded-full bg-gradient-to-br from-purple-500 via-indigo-500 to-blue-500 flex items-center justify-center text-4xl font-display font-bold shadow-2xl text-white ring-2 ring-white/30 ring-offset-2 ring-offset-transparent"
           whileHover={{ scale: 1.05, rotate: 5 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
           YS
         </motion.div>
         <div>
-          <h1 className="text-4xl font-bold mb-2">Yuriy Stenin</h1>
-          <p className={`text-xl ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Full Stack Developer</p>
-          <p className={`mt-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Building elegant solutions for complex problems</p>
+          <h1 className="text-5xl font-display font-bold mb-2 tracking-tight">Yuriy Stenin</h1>
+          <p className={`text-xl font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Full Stack Developer</p>
+          <p className={`mt-2 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Building elegant solutions for complex problems</p>
         </div>
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-2xl font-semibold">Who I Am</h2>
+        <h2 className="text-2xl font-display font-semibold">Who I Am</h2>
         <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-700'} leading-relaxed`}>
           I have a proven track record of delivering high-quality web solutions. My expertise lies in
           PHP, Drupal, JavaScript, MySQL, Git, and I am committed to upholding Clean Code principles
@@ -41,7 +41,7 @@ const AboutContent = () => {
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-2xl font-semibold">Skills & Expertise</h2>
+        <h2 className="text-2xl font-display font-semibold">Skills & Expertise</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <SkillCard skill="PHP & Drupal" level={95} color="from-orange-500 to-red-500" isDarkMode={isDarkMode} />
           <SkillCard skill="JavaScript" level={90} color="from-yellow-500 to-orange-500" isDarkMode={isDarkMode} />
@@ -53,7 +53,7 @@ const AboutContent = () => {
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-2xl font-semibold">Technologies</h2>
+        <h2 className="text-2xl font-display font-semibold">Technologies</h2>
         <div className="flex flex-wrap gap-2">
           {['PHP', 'Drupal 7/8/9', 'JavaScript', 'Python', 'Django', 'Flask',
             'MySQL', 'Git', 'GitHub', 'REST APIs', 'jQuery', 'Symfony',
@@ -97,17 +97,7 @@ const AboutContent = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
-              // For now, open LinkedIn profile
-              // In production, replace with actual PDF download
-              const confirmed = window.confirm(
-                '📄 CV Download\n\n' +
-                'For the full CV experience, please visit my LinkedIn profile.\n' +
-                'Would you like to open it now?\n\n' +
-                'Note: You can also add a direct PDF link here later!'
-              );
-              if (confirmed) {
-                window.open('https://www.linkedin.com/in/yuriy-stenin/', '_blank');
-              }
+              window.open('https://www.linkedin.com/in/yuriy-stenin/', '_blank', 'noopener,noreferrer');
             }}
             className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 rounded-lg font-medium shadow-lg hover:shadow-purple-500/50 transition-all text-white"
           >

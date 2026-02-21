@@ -50,7 +50,7 @@ const ContactContent = () => {
       className="space-y-8 pb-8"
     >
       <div className="space-y-2">
-        <h2 className="text-3xl font-bold">Get in Touch</h2>
+        <h2 className="text-3xl font-display font-bold">Get in Touch</h2>
         <p className={isDarkMode ? "text-gray-300" : "text-gray-600"}>
           I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
         </p>

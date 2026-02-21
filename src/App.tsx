@@ -68,10 +68,13 @@ function App() {
             className="h-screen w-screen overflow-hidden relative bg-cover bg-center transition-all duration-1000"
             style={getBackgroundStyle()}
           >
-            {/* Animated background blur circles */}
+            {/* Subtle overlay to improve glass card contrast against wallpapers */}
+            <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+
+            {/* Animated background blur circles — reduced opacity to not fight wallpaper */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               <motion.div
-                className="absolute w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-20"
+                className="absolute w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-10"
                 animate={{
                   x: [0, 100, 0],
                   y: [0, 50, 0],
@@ -84,7 +87,7 @@ function App() {
                 style={{ top: '10%', left: '20%' }}
               />
               <motion.div
-                className="absolute w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20"
+                className="absolute w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-10"
                 animate={{
                   x: [0, -100, 0],
                   y: [0, -50, 0],
@@ -97,7 +100,7 @@ function App() {
                 style={{ bottom: '10%', right: '20%' }}
               />
               <motion.div
-                className="absolute w-96 h-96 bg-pink-500 rounded-full filter blur-3xl opacity-15"
+                className="absolute w-96 h-96 bg-pink-500 rounded-full filter blur-3xl opacity-[0.08]"
                 animate={{
                   x: [0, -50, 0],
                   y: [0, 100, 0],
@@ -115,17 +118,18 @@ function App() {
             <Desktop onAppOpen={handleAppOpen} />
 
             {/* Render open windows */}
-            {openWindows.map((appId) => (
+            {openWindows.map((appId, index) => (
               <Window
                 key={appId}
                 appId={appId}
                 isActive={activeWindow === appId}
                 onClose={() => handleWindowClose(appId)}
                 onFocus={() => setActiveWindow(appId)}
+                offsetIndex={index}
               />
             ))}
 
-            <Dock onAppOpen={handleAppOpen} />
+            <Dock onAppOpen={handleAppOpen} openWindows={openWindows} />
           </motion.div>
         )}
       </AnimatePresence>

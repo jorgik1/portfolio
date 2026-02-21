@@ -17,9 +17,10 @@ interface WindowProps {
   isActive: boolean;
   onClose: () => void;
   onFocus: () => void;
+  offsetIndex?: number;
 }
 
-const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
+const Window = ({ appId, isActive, onClose, onFocus, offsetIndex = 0 }: WindowProps) => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [isMinimizing, setIsMinimizing] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -52,8 +53,7 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
   const handleMinimize = () => {
     setIsMinimizing(true);
     setTimeout(() => {
-      // In a full implementation, this would hide the window
-      alert('💡 Window minimized! Click the dock icon to restore.');
+      onClose();
       setIsMinimizing(false);
     }, 600);
   };
@@ -61,6 +61,8 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
   const handleMaximize = () => {
     setIsMaximized(!isMaximized);
   };
+
+  const cascadeOffset = offsetIndex * 30;
 
   return (
     <motion.div
@@ -72,7 +74,7 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
       initial={{
         scale: 0.3,
         opacity: 0,
-        x: '-50%',
+        x: `calc(-50% + ${cascadeOffset}px)`,
         y: '100vh',
       }}
       animate={{
@@ -80,8 +82,8 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
         opacity: isMinimizing ? 0 : 1,
         width: isMaximized ? '100vw' : '800px',
         height: isMaximized ? 'calc(100vh - 140px)' : '600px',
-        x: isMaximized ? 0 : (isMinimizing ? '-50%' : '-50%'),
-        y: isMaximized ? '40px' : (isMinimizing ? '100vh' : '-50%'),
+        x: isMaximized ? 0 : (isMinimizing ? `calc(-50% + ${cascadeOffset}px)` : `calc(-50% + ${cascadeOffset}px)`),
+        y: isMaximized ? '40px' : (isMinimizing ? '100vh' : `calc(-50% + ${cascadeOffset}px)`),
         top: isMaximized ? 0 : '50%',
         left: isMaximized ? 0 : '50%',
         rotateX: isDragging ? 2 : 0,
@@ -116,7 +118,7 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
         <div className="flex flex-col w-full h-full overflow-hidden">
           {/* Title Bar */}
           <motion.div
-            className={`flex items-center justify-between px-4 py-3 border-b cursor-move ${isDarkMode ? 'border-white/10' : 'border-black/5'}`}
+            className={`flex items-center justify-between px-4 py-3 border-b cursor-move bg-gradient-to-b from-white/[0.08] to-transparent ${isDarkMode ? 'border-white/10' : 'border-black/5'}`}
             animate={{
               backgroundColor: isActive
                 ? (isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.5)')
@@ -150,7 +152,7 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
               </motion.button>
             </div>
             <motion.h2
-              className={`font-medium absolute left-1/2 transform -translate-x-1/2 pointer-events-none ${isDarkMode ? 'text-white' : 'text-black'}`}
+              className={`font-display text-sm font-semibold absolute left-1/2 transform -translate-x-1/2 pointer-events-none ${isDarkMode ? 'text-white' : 'text-gray-800'}`}
               animate={{ opacity: isDragging ? 0.7 : 1 }}
             >
               {windowTitles[appId] || 'Window'}
@@ -177,8 +179,8 @@ const Window = ({ appId, isActive, onClose, onFocus }: WindowProps) => {
         style={{ zIndex: -1 }}
         animate={{
           boxShadow: isDragging
-            ? '0 35px 60px -15px rgba(0, 0, 0, 0.4)'
-            : '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+            ? '0 35px 60px -15px rgba(0, 0, 0, 0.5)'
+            : '0 25px 50px -12px rgba(0, 0, 0, 0.35)',
         }}
       />
     </motion.div>
