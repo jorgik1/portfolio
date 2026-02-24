@@ -106,7 +106,7 @@ const Loader = ({ onLoadComplete }: LoaderProps) => {
           {/* Progress bar container */}
           <div className="h-1.5 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
             <motion.div
-              className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full"
+              className="h-full bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full"
               initial={{ width: '0%' }}
               animate={{ width: `${Math.min(progress, 100)}%` }}
               transition={{ duration: 0.3, ease: "easeOut" }}

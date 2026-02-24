@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 export default {
   darkMode: 'class',
   content: [
@@ -7,6 +9,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Plus Jakarta Sans', ...defaultTheme.fontFamily.sans],
+        display: ['Fraunces', 'Georgia', 'serif'],
+      },
       colors: {
         macos: {
           bg: '#1e1e2e',

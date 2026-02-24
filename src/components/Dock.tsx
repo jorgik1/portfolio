@@ -6,9 +6,10 @@ import { portfolioConfig } from '../data/portfolio';
 
 interface DockProps {
   onAppOpen: (appId: string) => void;
+  openWindows: string[];
 }
 
-const Dock = ({ onAppOpen }: DockProps) => {
+const Dock = ({ onAppOpen, openWindows }: DockProps) => {
   const apps = [
     { id: 'about', icon: FaUser, label: 'About Me', color: '#3b82f6' },
     { id: 'projects', icon: FaCode, label: 'Projects', color: '#8b5cf6' },
@@ -34,7 +35,7 @@ const Dock = ({ onAppOpen }: DockProps) => {
     <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
       <GlassCard className="px-4 py-3">
         <div className="flex items-end gap-2">
-          {apps.map((app, index) => (
+          {apps.map((app) => (
             <motion.button
               key={app.id}
               className="relative group"
@@ -66,14 +67,16 @@ const Dock = ({ onAppOpen }: DockProps) => {
                 <app.icon className="w-8 h-8 text-white" />
               </motion.div>
 
-              {/* Active indicator */}
-              <motion.div
-                className="absolute -bottom-1 left-1/2 transform -translate-x-1/2
-                           w-1 h-1 bg-white/60 rounded-full"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-              />
+              {/* Active indicator — only shown when window is open */}
+              {!app.link && openWindows.includes(app.id) && (
+                <motion.div
+                  className="absolute -bottom-1 left-1/2 transform -translate-x-1/2
+                             w-1 h-1 bg-white/60 rounded-full"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.05 }}
+                />
+              )}
             </motion.button>
           ))}
         </div>
