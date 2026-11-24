@@ -10,7 +10,7 @@ const BrowserContent = () => {
 
   const favorites = [
     { name: 'GitHub', url: 'https://github.com/jorgik1', color: 'bg-black' },
-    { name: 'Portfolio', url: 'https://yuriy-stenin.com', color: 'bg-purple-600' },
+    { name: 'Portfolio', url: 'https://yuriy-dev.vercel.app', color: 'bg-purple-600' },
     { name: 'Linkedin', url: 'https://linkedin.com/in/yuriy-stenin', color: 'bg-blue-600' },
     { name: 'React', url: 'https://react.dev', color: 'bg-blue-500' }
   ];
@@ -139,7 +139,7 @@ const BrowserContent = () => {
 
              {/* Overlay hint if it might fail */}
              <div className="absolute bottom-0 left-0 right-0 bg-yellow-50 p-2 text-center text-xs text-yellow-700 border-t border-yellow-200">
-               ⚠️ Note: Many external sites (like GitHub) block being styled in an iframe.
+               Note: Many external sites (like GitHub) block being styled in an iframe.
                <a href={currentUrl} target="_blank" rel="noopener noreferrer" className="underline ml-2 font-bold">Open in new tab</a>
              </div>
           </div>

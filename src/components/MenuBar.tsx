@@ -1,7 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 import { GlassCard } from './GlassCard';
 import { FaApple } from 'react-icons/fa';
+import { portfolioConfig } from '../data/portfolio';
 
 interface MenuItem {
   label: string;
@@ -15,6 +17,13 @@ interface MenuBarProps {
 
 const MenuBar = ({ onAppOpen }: MenuBarProps) => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+
+  // Re-render twice a minute so the clock stays correct.
+  const [, setTick] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => setTick((t) => t + 1), 30000);
+    return () => clearInterval(timer);
+  }, []);
 
   const currentTime = new Date().toLocaleTimeString('en-US', {
     hour: '2-digit',
@@ -42,8 +51,6 @@ const MenuBar = ({ onAppOpen }: MenuBarProps) => {
       { label: 'About Me', action: 'about' },
       { label: 'My Projects', action: 'projects' },
       { label: 'Contact', action: 'contact' },
-      { label: '---' },
-      { label: 'Download CV', action: 'cv' },
     ],
     file: [
       { label: 'New Window', action: 'new' },
@@ -99,14 +106,11 @@ const MenuBar = ({ onAppOpen }: MenuBarProps) => {
       case 'linkedin':
         window.open('https://www.linkedin.com/in/yuriy-stenin/', '_blank', 'noopener,noreferrer');
         break;
-      case 'cv':
-        window.open('https://www.linkedin.com/in/yuriy-stenin/', '_blank', 'noopener,noreferrer');
-        break;
       case 'copy-email':
-        navigator.clipboard.writeText('yurii.stenin@gmail.com');
+        navigator.clipboard.writeText(portfolioConfig.personal.email).then(() => toast('Email address copied'));
         break;
       case 'copy-github':
-        navigator.clipboard.writeText('https://github.com/jorgik1');
+        navigator.clipboard.writeText('https://github.com/jorgik1').then(() => toast('GitHub link copied'));
         break;
       case 'print':
         window.print();
@@ -179,8 +183,8 @@ const MenuBar = ({ onAppOpen }: MenuBarProps) => {
               </div>
             </div>
             <div className="flex items-center gap-4 text-sm">
-              <span>{currentDate}</span>
-              <span className="font-semibold">{currentTime}</span>
+              <span className="max-sm:hidden">{currentDate}</span>
+              <span className="font-semibold whitespace-nowrap">{currentTime}</span>
             </div>
           </div>
         </GlassCard>

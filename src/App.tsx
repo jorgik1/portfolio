@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
+import { Toaster } from 'sonner';
 import Desktop from './components/Desktop';
 import Dock from './components/Dock';
 import MenuBar from './components/MenuBar';
@@ -55,7 +56,8 @@ function App() {
   };
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
+      <Toaster position="top-center" theme={isDarkMode ? 'dark' : 'light'} />
       <AnimatePresence mode="wait">
         {isLoading ? (
           <Loader key="loader" onLoadComplete={handleLoadComplete} />
@@ -70,49 +72,6 @@ function App() {
           >
             {/* Subtle overlay to improve glass card contrast against wallpapers */}
             <div className="absolute inset-0 bg-black/10 pointer-events-none" />
-
-            {/* Animated background blur circles — reduced opacity to not fight wallpaper */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <motion.div
-                className="absolute w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-10"
-                animate={{
-                  x: [0, 100, 0],
-                  y: [0, 50, 0],
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                style={{ top: '10%', left: '20%' }}
-              />
-              <motion.div
-                className="absolute w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-10"
-                animate={{
-                  x: [0, -100, 0],
-                  y: [0, -50, 0],
-                }}
-                transition={{
-                  duration: 15,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                style={{ bottom: '10%', right: '20%' }}
-              />
-              <motion.div
-                className="absolute w-96 h-96 bg-pink-500 rounded-full filter blur-3xl opacity-[0.08]"
-                animate={{
-                  x: [0, -50, 0],
-                  y: [0, 100, 0],
-                }}
-                transition={{
-                  duration: 25,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                style={{ top: '40%', right: '30%' }}
-              />
-            </div>
 
             <MenuBar onAppOpen={handleAppOpen} />
             <Desktop onAppOpen={handleAppOpen} />
@@ -133,7 +92,7 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </MotionConfig>
   );
 }
 

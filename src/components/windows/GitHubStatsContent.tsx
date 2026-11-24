@@ -143,25 +143,25 @@ const GitHubStatsContent = () => {
           icon={<FaBook />}
           label="Repositories"
           value={stats.public_repos}
-          color="from-blue-500 to-cyan-500"
+          color="text-blue-400"
         />
         <StatCard
           icon={<FaStar />}
           label="Total Stars"
           value={repos.reduce((acc, repo) => acc + repo.stargazers_count, 0)}
-          color="from-yellow-500 to-orange-500"
+          color="text-amber-400"
         />
         <StatCard
           icon={<FaCodeBranch />}
           label="Followers"
           value={stats.followers}
-          color="from-purple-500 to-pink-500"
+          color="text-purple-400"
         />
         <StatCard
           icon={<FaGithub />}
           label="Years on GitHub"
           value={yearsOnGitHub}
-          color="from-green-500 to-emerald-500"
+          color="text-emerald-400"
         />
       </div>
 
@@ -234,18 +234,14 @@ interface StatCardProps {
 
 const StatCard = ({ icon, label, value, color }: StatCardProps) => (
   <motion.div
-    whileHover={{ scale: 1.05, y: -4 }}
     className="p-4 rounded-xl bg-white/5 border border-white/10 relative overflow-hidden"
   >
-    <motion.div
-      className={`absolute inset-0 bg-gradient-to-br ${color} opacity-10`}
-    />
     <div className="relative z-10">
-      <div className={`text-2xl mb-2 bg-gradient-to-r ${color} bg-clip-text text-transparent`}>
+      <div className={`text-2xl mb-2 ${color}`}>
         {icon}
       </div>
       <div className="text-3xl font-bold mb-1">{value}</div>
-      <div className="text-sm text-gray-400">{label}</div>
+      <div className="text-sm text-gray-600 dark:text-gray-300">{label}</div>
     </div>
   </motion.div>
 );

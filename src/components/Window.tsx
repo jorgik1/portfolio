@@ -78,15 +78,14 @@ const Window = ({ appId, isActive, onClose, onFocus, offsetIndex = 0 }: WindowPr
         y: '100vh',
       }}
       animate={{
-        scale: isMinimizing ? 0.1 : (isDragging ? 1.02 : 1),
+        scale: isMinimizing ? 0.1 : 1,
         opacity: isMinimizing ? 0 : 1,
-        width: isMaximized ? '100vw' : '800px',
-        height: isMaximized ? 'calc(100vh - 140px)' : '600px',
+        width: isMaximized ? '100vw' : 'min(800px, calc(100vw - 16px))',
+        height: isMaximized ? 'calc(100dvh - 140px)' : 'min(600px, calc(100dvh - 170px))',
         x: isMaximized ? 0 : (isMinimizing ? `calc(-50% + ${cascadeOffset}px)` : `calc(-50% + ${cascadeOffset}px)`),
         y: isMaximized ? '40px' : (isMinimizing ? '100vh' : `calc(-50% + ${cascadeOffset}px)`),
         top: isMaximized ? 0 : '50%',
         left: isMaximized ? 0 : '50%',
-        rotateX: isDragging ? 2 : 0,
       }}
       exit={{
         scale: 0.8,
@@ -106,14 +105,10 @@ const Window = ({ appId, isActive, onClose, onFocus, offsetIndex = 0 }: WindowPr
         transformStyle: 'preserve-3d',
       }}
       onClick={onFocus}
-      whileHover={!isDragging ? {
-        scale: isMaximized ? 1 : 1.01,
-        transition: { duration: 0.2 }
-      } : {}}
     >
       <GlassCard
         variant={isActive ? 'active-window' : 'default'}
-        className={`w-full h-full ${!isDarkMode ? 'shadow-lg bg-white/85' : ''}`}
+        className={`w-full h-full ${isDarkMode ? '!bg-slate-900/80' : 'shadow-lg !bg-white/90'}`}
       >
         <div className="flex flex-col w-full h-full overflow-hidden">
           {/* Title Bar */}
@@ -130,6 +125,7 @@ const Window = ({ appId, isActive, onClose, onFocus, offsetIndex = 0 }: WindowPr
                 whileHover={{ scale: 1.3 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={(e) => { e.stopPropagation(); onClose(); }}
+                aria-label="Close window"
                 className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 relative group"
               >
                  <span className="absolute inset-0 flex items-center justify-center text-red-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">×</span>
@@ -138,6 +134,7 @@ const Window = ({ appId, isActive, onClose, onFocus, offsetIndex = 0 }: WindowPr
                 whileHover={{ scale: 1.3 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={(e) => { e.stopPropagation(); handleMinimize(); }}
+                aria-label="Minimize window"
                 className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600 relative group"
               >
                  <span className="absolute inset-0 flex items-center justify-center text-yellow-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">−</span>
@@ -146,6 +143,7 @@ const Window = ({ appId, isActive, onClose, onFocus, offsetIndex = 0 }: WindowPr
                 whileHover={{ scale: 1.3 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={(e) => { e.stopPropagation(); handleMaximize(); }}
+                aria-label={isMaximized ? 'Restore window' : 'Maximize window'}
                 className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-600 relative group"
               >
                  <span className="absolute inset-0 flex items-center justify-center text-green-900 text-[8px] opacity-0 group-hover:opacity-100 font-bold">{isMaximized ? '⇙' : '⇗'}</span>

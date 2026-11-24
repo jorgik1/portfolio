@@ -15,7 +15,7 @@ const VSCodeContent = () => {
   const codeContent: Record<string, string> = {
     'skills.ts': `interface Developer {
   name: "Yuriy Stenin";
-  role: "Full Stack Developer";
+  role: "Senior Software Engineer";
   stack: {
     frontend: [
       "React",
@@ -40,20 +40,24 @@ const VSCodeContent = () => {
 }`,
     'experience.json': `[
   {
-    "company": "ForTorSoft",
-    "role": "PHP/Drupal Developer",
-    "years": "2015 - Present",
-    "highlights": [
-      "Led e-commerce platform development",
-      "Optimized legacy code performance by 40%",
-      "Mentored junior developers"
-    ]
+    "company": "Digis, a Fiverr company",
+    "role": "Senior Software Engineer",
+    "years": "2026 - Present"
   },
   {
-    "company": "NDA Learner",
-    "role": "Junior Python Developer",
-    "years": "2023",
-    "stack": ["Django", "WebSockets", "Redis"]
+    "company": "Dropsolid",
+    "role": "Senior Software Developer",
+    "years": "2024 - 2026"
+  },
+  {
+    "company": "AnyforSoft",
+    "role": "PHP/Drupal Developer",
+    "years": "2015 - 2023",
+    "highlights": [
+      "Led migration from Drupal 7 to Drupal 8/9",
+      "E-commerce solutions for enterprise clients",
+      "Technical workshops and documentation"
+    ]
   }
 ]`,
     'README.md': `# Portfolio v2.0

@@ -25,12 +25,12 @@ const TerminalContent = () => {
 
     github: () => {
       window.open(portfolioConfig.personal.github, '_blank');
-      return '🚀 Opening GitHub profile in new tab...';
+      return 'Opening the GitHub profile in a new tab.';
     },
 
     linkedin: () => {
       window.open(portfolioConfig.personal.linkedin, '_blank');
-      return '🚀 Opening LinkedIn profile in new tab...';
+      return 'Opening the LinkedIn profile in a new tab.';
     },
 
     date: () => new Date().toString(),

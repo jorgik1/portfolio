@@ -32,13 +32,13 @@ const Dock = ({ onAppOpen, openWindows }: DockProps) => {
   };
 
   return (
-    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
-      <GlassCard className="px-4 py-3">
-        <div className="flex items-end gap-2">
+    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 max-w-[calc(100vw-16px)]">
+      <GlassCard className="px-3 py-2 sm:px-4 sm:py-3">
+        <div className="flex items-end gap-2 max-sm:overflow-x-auto">
           {apps.map((app) => (
             <motion.button
               key={app.id}
-              className="relative group"
+              className="relative group shrink-0"
               whileHover={{ y: -12, scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -57,14 +57,14 @@ const Dock = ({ onAppOpen, openWindows }: DockProps) => {
 
               {/* Icon */}
               <motion.div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center
+                className="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center
                            shadow-lg cursor-pointer"
                 style={{ backgroundColor: app.color }}
                 whileHover={{
                   boxShadow: `0 10px 30px ${app.color}50`,
                 }}
               >
-                <app.icon className="w-8 h-8 text-white" />
+                <app.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </motion.div>
 
               {/* Active indicator — only shown when window is open */}

@@ -52,7 +52,7 @@ const ContactContent = () => {
       <div className="space-y-2">
         <h2 className="text-3xl font-display font-bold">Get in Touch</h2>
         <p className={isDarkMode ? "text-gray-300" : "text-gray-600"}>
-          I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+          Write to me about a project or a role. I reply by email.
         </p>
       </div>
 
@@ -84,7 +84,7 @@ const ContactContent = () => {
 
       {/* Contact Form */}
       <div className={`p-6 rounded-xl border ${isDarkMode ? 'bg-white/5 border-white/10' : 'bg-white/40 border-black/5'}`}>
-        <h3 className="text-xl font-semibold mb-4">Send a Message</h3>
+        <h3 className="text-xl font-semibold mb-4">Send a message</h3>
 
         {state.succeeded ? (
           <motion.div
@@ -92,8 +92,8 @@ const ContactContent = () => {
             animate={{ scale: 1, opacity: 1 }}
             className="p-6 rounded-lg bg-green-500/20 border border-green-500/50 text-center"
           >
-            <p className="text-green-600 dark:text-green-300 font-medium text-lg">✓ Message sent successfully!</p>
-            <p className={isDarkMode ? "text-gray-300" : "text-gray-600"}>I'll get back to you ASAP!</p>
+            <p className="text-green-600 dark:text-green-300 font-medium text-lg">Message sent</p>
+            <p className={isDarkMode ? "text-gray-300" : "text-gray-600"}>I will reply by email.</p>
           </motion.div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -160,11 +160,10 @@ const ContactContent = () => {
             <motion.button
               type="submit"
               disabled={state.submitting || !recaptchaToken}
-              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className={`w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500
-                       text-white rounded-lg font-medium transition-all shadow-lg
-                       hover:from-purple-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed
+              className={`w-full px-6 py-3 bg-indigo-600 hover:bg-indigo-500
+                       text-white rounded-lg font-medium transition-colors
+                       disabled:opacity-50 disabled:cursor-not-allowed
                        ${state.submitting ? 'animate-pulse' : ''}`}
               onClick={(e) => {
                 e.preventDefault();
@@ -177,7 +176,7 @@ const ContactContent = () => {
                 });
               }}
             >
-              {state.submitting ? 'Sending...' : 'Submit'}
+              {state.submitting ? 'Sending message...' : 'Send message'}
             </motion.button>
           </form>
         )}
