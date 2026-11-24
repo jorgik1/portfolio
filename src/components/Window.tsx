@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 import { useState, Suspense, lazy } from 'react';
 import { GlassCard } from './GlassCard';
 import { useSettings } from '../context/SettingsContext';
@@ -58,7 +58,13 @@ const Window = ({ appId, isActive, onClose, onFocus, offsetIndex = 0 }: WindowPr
     }, 600);
   };
 
+  // Drag offset in pixels. Centring uses left/top, so drag never fights it.
+  const dragX = useMotionValue(0);
+  const dragY = useMotionValue(0);
+
   const handleMaximize = () => {
+    dragX.set(0);
+    dragY.set(0);
     setIsMaximized(!isMaximized);
   };
 
@@ -71,26 +77,14 @@ const Window = ({ appId, isActive, onClose, onFocus, offsetIndex = 0 }: WindowPr
       dragElastic={0.05}
       onDragStart={() => setIsDragging(true)}
       onDragEnd={() => setIsDragging(false)}
-      initial={{
-        scale: 0.3,
-        opacity: 0,
-        x: `calc(-50% + ${cascadeOffset}px)`,
-        y: '100vh',
-      }}
+      initial={{ scale: 0.9, opacity: 0 }}
       animate={{
         scale: isMinimizing ? 0.1 : 1,
         opacity: isMinimizing ? 0 : 1,
-        width: isMaximized ? '100vw' : 'min(800px, calc(100vw - 16px))',
-        height: isMaximized ? 'calc(100dvh - 140px)' : 'min(600px, calc(100dvh - 170px))',
-        x: isMaximized ? 0 : (isMinimizing ? `calc(-50% + ${cascadeOffset}px)` : `calc(-50% + ${cascadeOffset}px)`),
-        y: isMaximized ? '40px' : (isMinimizing ? '100vh' : `calc(-50% + ${cascadeOffset}px)`),
-        top: isMaximized ? 0 : '50%',
-        left: isMaximized ? 0 : '50%',
       }}
       exit={{
         scale: 0.8,
         opacity: 0,
-        y: 50,
         transition: { duration: 0.2, ease: 'easeIn' }
       }}
       transition={{
@@ -101,8 +95,14 @@ const Window = ({ appId, isActive, onClose, onFocus, offsetIndex = 0 }: WindowPr
       }}
       className="fixed"
       style={{
+        x: dragX,
+        y: dragY,
         zIndex: isActive ? 40 : 30,
-        transformStyle: 'preserve-3d',
+        transformOrigin: 'bottom center',
+        width: isMaximized ? '100vw' : 'min(800px, calc(100vw - 16px))',
+        height: isMaximized ? 'calc(100dvh - 140px)' : 'min(600px, calc(100dvh - 170px))',
+        left: isMaximized ? 0 : `calc(50% - min(400px, 50vw - 8px) + ${cascadeOffset}px)`,
+        top: isMaximized ? 40 : `calc(50% - min(300px, 50dvh - 85px) + ${cascadeOffset}px)`,
       }}
       onClick={onFocus}
     >
